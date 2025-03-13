@@ -3,6 +3,7 @@ package com.github.JBreno.dscommerce.services;
 import com.github.JBreno.dscommerce.dto.ProductDTO;
 import com.github.JBreno.dscommerce.entities.Product;
 import com.github.JBreno.dscommerce.repositories.ProductRepository;
+import com.github.JBreno.dscommerce.services.exceptions.ResouceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +21,11 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id) {
-        Product product = repository.findById(id).get();
+        Product product = repository.findById(id).orElseThrow(
+                () -> new ResouceNotFoundException("Resource not found")
+        );
         return new ProductDTO(product);
+
     }
 
     @Transactional(readOnly = true)
