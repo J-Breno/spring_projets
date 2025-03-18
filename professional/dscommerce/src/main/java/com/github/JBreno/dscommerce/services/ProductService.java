@@ -5,6 +5,7 @@ import com.github.JBreno.dscommerce.entities.Product;
 import com.github.JBreno.dscommerce.repositories.ProductRepository;
 import com.github.JBreno.dscommerce.services.exceptions.DatabaseException;
 import com.github.JBreno.dscommerce.services.exceptions.ResouceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -12,9 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -53,7 +51,7 @@ public class ProductService {
             entity = repository.save(entity);
             return new ProductDTO(entity);
         }
-        catch (Exception e) {
+        catch (EntityNotFoundException e) {
             throw new ResouceNotFoundException("Resource not found");
         }
 
