@@ -3,9 +3,11 @@ package com.github.JBreno.desafio_crud.crudDesafio.services;
 import com.github.JBreno.desafio_crud.crudDesafio.dto.ClientDTO;
 import com.github.JBreno.desafio_crud.crudDesafio.entities.Client;
 import com.github.JBreno.desafio_crud.crudDesafio.repositories.ClientRepository;
+import com.github.JBreno.desafio_crud.crudDesafio.services.exception.DatabaseException;
 import com.github.JBreno.desafio_crud.crudDesafio.services.exception.ResouceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,20 @@ public class ClientService {
             return new ClientDTO(client);
         } catch (EntityNotFoundException e) {
             throw new ResouceNotFoundException("Resource not found");
+        }
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        if(!repository.existsById(id)){
+            throw new ResouceNotFoundException("Resource not found");
+        }
+
+        try{
+            repository.deleteById(id);
+        }
+        catch(DataIntegrityViolationException e){
+            throw new DatabaseException("Falha de integridade referencial");
         }
     }
 
