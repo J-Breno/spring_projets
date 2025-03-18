@@ -4,6 +4,7 @@ import com.github.JBreno.desafio_crud.crudDesafio.dto.ClientDTO;
 import com.github.JBreno.desafio_crud.crudDesafio.entities.Client;
 import com.github.JBreno.desafio_crud.crudDesafio.repositories.ClientRepository;
 import com.github.JBreno.desafio_crud.crudDesafio.services.exception.ResouceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +37,18 @@ public class ClientService {
         copyDtoToEntity(dto, client);
         client = repository.save(client);
         return new ClientDTO(client);
+    }
+
+    @Transactional
+    public ClientDTO update(Long id, ClientDTO dto) {
+        try{
+            Client client = repository.getReferenceById(id);
+            copyDtoToEntity(dto, client);
+            client = repository.save(client);
+            return new ClientDTO(client);
+        } catch (EntityNotFoundException e) {
+            throw new ResouceNotFoundException("Resource not found");
+        }
     }
 
     public void copyDtoToEntity(ClientDTO dto, Client entity) {
