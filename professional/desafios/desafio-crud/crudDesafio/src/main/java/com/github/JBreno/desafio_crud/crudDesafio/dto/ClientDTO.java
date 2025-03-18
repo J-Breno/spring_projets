@@ -23,6 +23,8 @@ public class ClientDTO {
     @Positive(message = "O preço deve ser positivo")
     private Integer children;
 
+    public ClientDTO() {}
+
     public ClientDTO(Long id, String name, String cpf, Double income, LocalDate birthDate, Integer children) {
         this.id = id;
         this.name = name;
