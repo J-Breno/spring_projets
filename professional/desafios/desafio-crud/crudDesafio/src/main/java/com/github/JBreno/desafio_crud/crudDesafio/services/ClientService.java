@@ -1,0 +1,24 @@
+package com.github.JBreno.desafio_crud.crudDesafio.services;
+
+import com.github.JBreno.desafio_crud.crudDesafio.dto.ClientDTO;
+import com.github.JBreno.desafio_crud.crudDesafio.entities.Client;
+import com.github.JBreno.desafio_crud.crudDesafio.repositories.ClientRepository;
+import com.github.JBreno.desafio_crud.crudDesafio.services.exception.ResouceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class ClientService {
+
+    @Autowired
+    private ClientRepository repository;
+
+    @Transactional(readOnly = true)
+    public ClientDTO findById(Long id) {
+        Client client = repository.findById(id).orElseThrow(
+                () -> new ResouceNotFoundException("Resource not found")
+        );
+        return new ClientDTO(client);
+    }
+}
