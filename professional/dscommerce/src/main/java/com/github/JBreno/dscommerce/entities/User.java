@@ -23,6 +23,12 @@ public class User {
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(name = "tb_user_role",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
     public User() {
     }
 
@@ -85,6 +91,23 @@ public class User {
 
     public List<Order> getOrders() {
         return orders;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void addRole(Role role) {
+        roles.add(role);
+    }
+
+    public boolean hasRole(String role) {
+        for(Role r : roles) {
+            if(r.getAuthority().equals(role)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
