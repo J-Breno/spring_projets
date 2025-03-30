@@ -1,7 +1,9 @@
 package com.github.JBreno.dscommerce.services;
 
+import com.github.JBreno.dscommerce.dto.CategoryDTO;
 import com.github.JBreno.dscommerce.dto.ProductDTO;
 import com.github.JBreno.dscommerce.dto.ProductMinDTO;
+import com.github.JBreno.dscommerce.entities.Category;
 import com.github.JBreno.dscommerce.entities.Product;
 import com.github.JBreno.dscommerce.repositories.ProductRepository;
 import com.github.JBreno.dscommerce.services.exceptions.DatabaseException;
@@ -76,5 +78,13 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+
+        entity.getCategories().clear();
+
+        for(CategoryDTO catDTO : dto.getCategories()){
+            Category cat = new Category();
+            cat.setId(catDTO.getId());
+            entity.getCategories().add(cat);
+        }
     }
 }
