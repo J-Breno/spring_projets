@@ -29,7 +29,6 @@ public class ProductService {
                 () -> new ResouceNotFoundException("Resource not found")
         );
         return new ProductDTO(product);
-
     }
 
     @Transactional(readOnly = true)
