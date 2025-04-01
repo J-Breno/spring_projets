@@ -3,10 +3,13 @@ package com.github.Jbreno.dscatalog.services;
 import com.github.Jbreno.dscatalog.dto.CategoryDTO;
 import com.github.Jbreno.dscatalog.entities.Category;
 import com.github.Jbreno.dscatalog.repositories.CategoryRepository;
+import com.github.Jbreno.dscatalog.services.exceptions.DatabaseException;
 import com.github.Jbreno.dscatalog.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -50,6 +53,19 @@ public class CategoryService {
             return new CategoryDTO(category);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found: " + id);
+        }
+    }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public void delete(Long id) {
+        if(!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Id not found: " + id);
+        }
+        try{
+            repository.deleteById(id);
+        }
+        catch(DataIntegrityViolationException e){
+            throw new DatabaseException("Falha de integridade referencial");
         }
     }
 }
