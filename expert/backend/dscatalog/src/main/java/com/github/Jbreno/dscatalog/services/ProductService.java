@@ -1,5 +1,15 @@
 package com.github.Jbreno.dscatalog.services;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.github.Jbreno.dscatalog.dto.CategoryDTO;
 import com.github.Jbreno.dscatalog.dto.ProductDTO;
 import com.github.Jbreno.dscatalog.entities.Category;
@@ -8,17 +18,8 @@ import com.github.Jbreno.dscatalog.repositories.CategoryRepository;
 import com.github.Jbreno.dscatalog.repositories.ProductRepository;
 import com.github.Jbreno.dscatalog.services.exceptions.DatabaseException;
 import com.github.Jbreno.dscatalog.services.exceptions.ResourceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ProductService {
@@ -26,8 +27,6 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    @Autowired
-    private CategoryRepository CategoryRepository;
     @Autowired
     private CategoryRepository categoryRepository;
 
