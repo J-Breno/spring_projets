@@ -39,7 +39,7 @@ public class Account {
         balance -= amount;
     }
 
-    public double fullWithdraw(Double amount) {
+    public double fullWithdraw() {
         double aux = balance;
         balance = 0.0;
         return aux;
