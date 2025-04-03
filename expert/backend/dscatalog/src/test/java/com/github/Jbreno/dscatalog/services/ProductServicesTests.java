@@ -1,5 +1,9 @@
 package com.github.Jbreno.dscatalog.services;
 
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +14,7 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.github.Jbreno.dscatalog.repositories.ProductRepository;
+import com.github.Jbreno.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @ExtendWith(SpringExtension.class)
 public class ProductServicesTests {
@@ -21,12 +26,23 @@ public class ProductServicesTests {
 	private ProductRepository repository;
 	
 	private long existingId;
+	private long nonExistingId;
 	
 	@BeforeEach
 	void setUp() throws	Exception {
 		existingId = 1L;
+		nonExistingId = 2L;
 		
-		Mockito.doNothing().when(repository).deleteById(existingId);;
+		doNothing().when(repository).deleteById(existingId);
+		Mockito.when(repository.existsById(existingId)).thenReturn(true);
+		Mockito.when(repository.existsById(nonExistingId)).thenReturn(false);
+	}
+	
+	@Test
+	public void deleteShouldThrowResourceNotFoundExceptionWhenIdDoesNotExist() {
+		Assertions.assertThrows(ResourceNotFoundException.class, () -> {
+			service.delete(nonExistingId);
+		});
 	}
 	
 	@Test
@@ -35,6 +51,6 @@ public class ProductServicesTests {
 			service.delete(existingId);
 		});
 		
-		Mockito.verify(repository).deleteById(existingId);
+		verify(repository, times(1)).deleteById(existingId);
 	}
 }
