@@ -80,9 +80,6 @@ public class ProductResourceIT {
 		ProductDTO productDTO = Factory.createProductDTO();
 		String jsonBody = objectMapper.writeValueAsString(productDTO);
 		
-		String expectedName = productDTO.getName();
-		String expectedDescription = productDTO.getDescription();
-		
 		ResultActions result =
 				mockMvc.perform(get("/products/{id}", nonExistingId)
 						.content(jsonBody)
