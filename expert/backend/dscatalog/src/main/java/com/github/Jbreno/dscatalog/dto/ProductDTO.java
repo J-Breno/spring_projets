@@ -1,8 +1,7 @@
 package com.github.Jbreno.dscatalog.dto;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.github.Jbreno.dscatalog.entities.Category;
@@ -26,7 +25,7 @@ public class ProductDTO {
     @PastOrPresent(message = "A data do produto não pode ser futura")
     private Instant date;
 
-    List<CategoryDTO> categories = new ArrayList<>();
+    Set<CategoryDTO> categories = new HashSet<>();
 
     public ProductDTO() {}
 
@@ -101,7 +100,7 @@ public class ProductDTO {
         this.date = date;
     }
 
-    public List<CategoryDTO> getCategories() {
+    public Set<CategoryDTO> getCategories() {
         return categories;
     }
 }
