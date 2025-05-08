@@ -1,7 +1,6 @@
 package com.github.Jbreno.dscatalog.util;
 
-import com.github.Jbreno.dscatalog.entities.Product;
-import com.github.Jbreno.dscatalog.projections.ProductProjection;
+import com.github.Jbreno.dscatalog.projections.IdProjection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,16 +8,20 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
-    public static List<Product> replace(List<ProductProjection> ordered, List<Product> unordered) {
-        Map<Long, Product> map = new HashMap<>();
-        for(Product p : unordered) {
+    public static <ID> List<? extends IdProjection<ID>> replace(
+            List<? extends IdProjection<ID>> ordered,
+            List<? extends IdProjection<ID>> unordered) {
+
+        Map<ID, IdProjection<ID>> map = new HashMap<>();
+        for(IdProjection<ID> p : unordered) {
             map.put(p.getId(), p);
         }
 
-        List<Product> result = new ArrayList<>();
-        for(ProductProjection pj : ordered) {
+        List<IdProjection<ID>> result = new ArrayList<>();
+        for(IdProjection<ID> pj : ordered) {
             result.add(map.get(pj.getId()));
         }
+
         return result;
     }
 }

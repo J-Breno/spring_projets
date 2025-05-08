@@ -1,7 +1,9 @@
 package com.github.Jbreno.dscatalog.entities;
 
+import com.github.Jbreno.dscatalog.projections.IdProjection;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
@@ -9,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
-public class Product {
+public class Product implements IdProjection<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,6 +43,7 @@ public class Product {
         this.date = date;
     }
 
+    @Override
     public Long getId() {
         return id;
     }

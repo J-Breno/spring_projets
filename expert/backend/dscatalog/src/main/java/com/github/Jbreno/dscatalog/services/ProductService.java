@@ -94,6 +94,7 @@ public class ProductService {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public Page<ProductDTO> findAllPage(String name, String categoryId, Pageable pageable) {
         List<Long> categoryIds = Arrays.asList();
@@ -104,7 +105,7 @@ public class ProductService {
         Page<ProductProjection> page = repository.searchProducts(categoryIds, name, pageable);
         List<Long> productIds = page.map(x -> x.getId()).toList();
         List<Product> entities = repository.searchProductsWithCategories(productIds);
-        entities = Utils.replace(page.getContent(), entities);
+        entities = (List<Product>) Utils.replace(page.getContent(), entities);
         List<ProductDTO> dtos = entities.stream().map(x -> new ProductDTO(x, x.getCategories())).toList();
         return new PageImpl<>(dtos, pageable, page.getTotalElements());
     }
