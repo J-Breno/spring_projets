@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.devsuperior</groupId>
-	<artifactId>aula</artifactId>
+	<artifactId>dsmovie</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>aula</name>
+	<name>dsmovie</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -76,19 +76,24 @@
 			</plugin>
 
 			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			
+			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.7</version>
 				<configuration>
 					<excludes>
-						<exclude>com/devsuperior/dscommerce/DscommerceApplication.class</exclude>
-						<exclude>com/devsuperior/dscommerce/config/**</exclude>
-						<exclude>com/devsuperior/dscommerce/entities/**</exclude>
-						<exclude>com/devsuperior/dscommerce/util/**</exclude>
-						<exclude>com/devsuperior/dscommerce/dto/**</exclude>
-						<exclude>com/devsuperior/dscommerce/controllers/**</exclude>
-						<exclude>com/devsuperior/dscommerce/controllers/handlers/**</exclude>
-						<exclude>com/devsuperior/dscommerce/services/exceptions/**</exclude>
+						<exclude>com/devsuperior/dsmovie/DsmovieApplication.class</exclude>
+						<exclude>com/devsuperior/dsmovie/config/**</exclude>
+						<exclude>com/devsuperior/dsmovie/entities/**</exclude>
+						<exclude>com/devsuperior/dsmovie/dto/**</exclude>
+						<exclude>com/devsuperior/dsmovie/controllers/**</exclude>
+						<exclude>com/devsuperior/dsmovie/controllers/handlers/**</exclude>
+						<exclude>com/devsuperior/dsmovie/services/exceptions/**</exclude>
+						<exclude>com/devsuperior/dsmovie/utils/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -108,11 +113,6 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
