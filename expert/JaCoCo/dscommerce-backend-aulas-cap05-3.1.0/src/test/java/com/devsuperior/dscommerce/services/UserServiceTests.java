@@ -1,5 +1,6 @@
 package com.devsuperior.dscommerce.services;
 
+import com.devsuperior.dscommerce.dto.UserDTO;
 import com.devsuperior.dscommerce.entities.User;
 import com.devsuperior.dscommerce.projections.UserDetailsProjection;
 import com.devsuperior.dscommerce.repositories.UserRepository;
@@ -78,5 +79,28 @@ public class UserServiceTests {
     public void authenticatedShouldThrowUserNotFoundExceptionWhenUserDoesNotExist() {
         Mockito.doThrow(ClassCastException.class).when(customUserUtil).getLoggedUserName();
         Assertions.assertThrows(UsernameNotFoundException.class, () -> userService.authenticated());
+    }
+
+    @Test
+    public void getMeShouldReturnUserDTOWhenUserAuthenticated() {
+        UserService userServiceSpy = Mockito.spy(userService);
+
+        Mockito.doReturn(user).when(userServiceSpy).authenticated();
+
+        UserDTO result = userServiceSpy.getMe();
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result.getEmail(), existingUsername);
+    }
+
+    @Test
+    public void getMeShouldThrowUserNotFoundExceptionWhenUserDoesNotAuthenticated() {
+        UserService userServiceSpy = Mockito.spy(userService);
+        Mockito.doThrow(UsernameNotFoundException.class).when(userServiceSpy).authenticated();
+
+        Assertions.assertThrows(UsernameNotFoundException.class, () -> {
+            UserDTO result = userServiceSpy.getMe();
+
+        });
     }
 }
