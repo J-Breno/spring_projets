@@ -48,7 +48,7 @@ public class OrderService {
 	public OrderDTO insert(OrderDTO dto) {
 		
     	Order order = new Order();
-    	
+    	order.setId(1L);
     	order.setMoment(Instant.now());
     	order.setStatus(OrderStatus.WAITING_PAYMENT);
     	
