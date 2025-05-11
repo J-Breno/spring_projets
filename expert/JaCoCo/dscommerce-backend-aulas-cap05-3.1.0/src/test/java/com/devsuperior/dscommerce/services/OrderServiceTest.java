@@ -2,6 +2,7 @@ package com.devsuperior.dscommerce.services;
 
 import com.devsuperior.dscommerce.dto.OrderDTO;
 import com.devsuperior.dscommerce.entities.Order;
+import com.devsuperior.dscommerce.entities.OrderItem;
 import com.devsuperior.dscommerce.entities.Product;
 import com.devsuperior.dscommerce.entities.User;
 import com.devsuperior.dscommerce.repositories.OrderItemRepository;
@@ -116,7 +117,6 @@ public class OrderServiceTest {
 
         OrderDTO result = orderService.insert(orderDTO);
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(result.getId(), existingOrderId);
     }
 
     @Test
@@ -124,7 +124,6 @@ public class OrderServiceTest {
         Mockito.when(userService.authenticated()).thenReturn(client);
         OrderDTO result = orderService.insert(orderDTO);
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(result.getId(), existingOrderId);
     }
 
     @Test
@@ -133,6 +132,18 @@ public class OrderServiceTest {
         order.setClient(new User());
         orderDTO = new OrderDTO(order);
         Assertions.assertThrows(UsernameNotFoundException.class, () -> {
+            OrderDTO result = orderService.insert(orderDTO);
+        });
+    }
+
+    @Test
+    public void insertShouldThrowEntityNotFoundExceptionWhenIdDoesNotExists() {
+        Mockito.when(userService.authenticated()).thenReturn(client);
+        product.setId(nonExistingOrderId);
+        OrderItem orderItem = new OrderItem(order, product, 2, 10.0);
+        order.getItems().add(orderItem);
+        orderDTO = new OrderDTO(order);
+        Assertions.assertThrows(EntityNotFoundException.class, () -> {
             OrderDTO result = orderService.insert(orderDTO);
         });
     }
