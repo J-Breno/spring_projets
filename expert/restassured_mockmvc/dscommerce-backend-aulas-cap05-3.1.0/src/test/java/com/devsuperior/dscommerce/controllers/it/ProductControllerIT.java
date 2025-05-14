@@ -1,5 +1,9 @@
 package com.devsuperior.dscommerce.controllers.it;
 
+import com.devsuperior.dscommerce.dto.ProductDTO;
+import com.devsuperior.dscommerce.entities.Product;
+import com.devsuperior.dscommerce.tests.TokenUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +27,31 @@ public class ProductControllerIT {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private TokenUtil tokenUtil;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     private String productName;
-    private String adminToken;
+    private String clientUsername, clientPassword, adminUsername, adminPassword;
+    private String adminToken, clientToken, invalidToken;
+
+    private Product product;
+    private ProductDTO productDTO;
 
     @BeforeEach
     public void setUp() throws Exception {
         productName = "MacBook";
+
+        clientUsername = "maria@gmail.com";
+        clientPassword = "123456";
+        adminUsername = "alex@gmail.com";
+        adminPassword = "123456";
+
+        adminToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
+        clientToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword);
+        invalidToken = adminToken + "xpto";
     }
 
     @Test
@@ -57,7 +80,7 @@ public class ProductControllerIT {
 
     @Test
     public void insertShouldReturnProductDTOCreatedWhenAdminLoged() throws Exception {
-        String jsonBody = "";
+        String jsonBody = objectMapper.writeValueAsString(productDTO);
         ResultActions result = mockMvc.perform(post("/products")
                         .header("Authorization", "Bearer " + adminToken)
                         .content(jsonBody)
