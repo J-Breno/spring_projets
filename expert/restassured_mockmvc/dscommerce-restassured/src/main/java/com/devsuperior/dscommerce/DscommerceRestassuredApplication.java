@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DscommerceRestassured1Application {
+public class DscommerceRestassuredApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DscommerceRestassured1Application.class, args);
+		SpringApplication.run(DscommerceRestassuredApplication.class, args);
 	}
 
 }
