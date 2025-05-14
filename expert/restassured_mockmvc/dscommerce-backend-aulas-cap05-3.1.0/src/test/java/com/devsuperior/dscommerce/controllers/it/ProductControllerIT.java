@@ -10,9 +10,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -23,6 +24,7 @@ public class ProductControllerIT {
     private MockMvc mockMvc;
 
     private String productName;
+    private String adminToken;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -34,16 +36,16 @@ public class ProductControllerIT {
         ResultActions result = mockMvc.perform(get("/products?name={productName}", productName)
                 .accept(MediaType.APPLICATION_JSON));
 
-        result.andExpectAll(status().isOk());
-        result.andExpectAll(jsonPath("$.content[0].id").value(3L));
-        result.andExpectAll(jsonPath("$.content[0].name").value("Macbook Pro"));
-        result.andExpectAll(jsonPath("$.content[0].price").value(1250.0));
-        result.andExpectAll(jsonPath("$.content[0].imgUrl").value("https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/3-big.jpg"));
+        result.andExpect(status().isOk());
+        result.andExpect(jsonPath("$.content[0].id").value(3L));
+        result.andExpect(jsonPath("$.content[0].name").value("Macbook Pro"));
+        result.andExpect(jsonPath("$.content[0].price").value(1250.0));
+        result.andExpect(jsonPath("$.content[0].imgUrl").value("https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/3-big.jpg"));
     }
 
     @Test
     public void findAllShouldReturnPageWhenNameParamIsEmpty() throws Exception {
-        ResultActions result = mockMvc.perform(get("/products", productName)
+        ResultActions result = mockMvc.perform(get("/products")
                 .accept(MediaType.APPLICATION_JSON));
 
         result.andExpectAll(status().isOk());
@@ -51,5 +53,14 @@ public class ProductControllerIT {
         result.andExpectAll(jsonPath("$.content[0].name").value("The Lord of the Rings"));
         result.andExpectAll(jsonPath("$.content[0].price").value(90.5));
         result.andExpectAll(jsonPath("$.content[0].imgUrl").value("https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg"));
+    }
+
+    @Test
+    public void insertShouldReturnProductDTOCreatedWhenAdminLoged() throws Exception {
+        String jsonBody = "";
+        ResultActions result = mockMvc.perform(post("/products")
+                        .header("Authorization", "Bearer " + adminToken)
+                        .content(jsonBody)
+                .accept(MediaType.APPLICATION_JSON));
     }
 }
