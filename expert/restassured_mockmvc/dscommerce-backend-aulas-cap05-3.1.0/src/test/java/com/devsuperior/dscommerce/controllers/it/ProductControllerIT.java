@@ -163,7 +163,7 @@ public class ProductControllerIT {
     }
 
     @Test
-    public void insertShouldReturnUnprocessableEntityWhenAdminLogedAndProductHasNotCategory() throws Exception {
+    public void insertShouldReturnUnprocessableEntityWhenAdminLoggedAndProductHasNotCategory() throws Exception {
         product.getCategories().clear();
         productDTO = new ProductDTO(product);
         String jsonBody = objectMapper.writeValueAsString(productDTO);
@@ -174,5 +174,29 @@ public class ProductControllerIT {
                 .accept(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void insertShouldReturnForbbidenWhenClientLoged() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(productDTO);
+        ResultActions result = mockMvc.perform(post("/products")
+                .header("Authorization", "Bearer " + clientUsername)
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void insertShouldReturnUnauthorizedWhenInvalidToken() throws Exception {
+        String jsonBody = objectMapper.writeValueAsString(productDTO);
+        ResultActions result = mockMvc.perform(post("/products")
+                .header("Authorization", "Bearer " + invalidToken)
+                .content(jsonBody)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isUnauthorized());
     }
 }
