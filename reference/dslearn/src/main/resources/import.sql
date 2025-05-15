@@ -21,3 +21,7 @@ INSERT INTO tb_offer(edition, start_moment, end_moment, course_id) VALUES ('2.0'
 INSERT INTO tb_resource(title, description, position, img_uri, type, offer_id) VALUES ('Trilha HTML', 'Trilha principal do curso', 1, 'https:afdsakjfajfdhslsdjalf.png', 1, 1);
 INSERT INTO tb_resource(title, description, position, img_uri, type, offer_id) VALUES ('Forum', 'Tire suas dúvidas', 2, 'https:afdsakjfajfdhslsdjalf.png', 2, 1);
 INSERT INTO tb_resource(title, description, position, img_uri, type, offer_id) VALUES ('Lives', 'Lives exclusivas para turma', 3, 'https:afdsakjfajfdhslsdjalf.png', 0, 1);
+
+INSERT INTO tb_section(title, description, position, img_uri, resource_id, prerequisite_id) VALUES ('Capítulo 1', 'Neste capitulo vamos começar', 1, 'https:afdsakjfajfdhslsdjalf', 1, null);
+INSERT INTO tb_section(title, description, position, img_uri, resource_id, prerequisite_id) VALUES ('Capítulo 2', 'Neste capitulo vamos continuar', 2, 'https:afdsakjfajfdhslsdjalf', 1, 1);
+INSERT INTO tb_section(title, description, position, img_uri, resource_id, prerequisite_id) VALUES ('Capítulo 3', 'Neste capitulo vamos finalizar', 3, 'https:afdsakjfajfdhslsdjalf', 1, 2);
