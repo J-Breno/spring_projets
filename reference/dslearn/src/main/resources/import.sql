@@ -12,3 +12,5 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 3);
+
+INSERT INTO tb_course(name, img_uri, img_gray_uri) VALUES ('Bootcampt HTML', 'data:imasnuthfiaf5EuadjfI9g9ZPdbC/E0/7eN1OxvljxOrmsVVHpVNK4V6dVHp1F4', 'https://blog.coursify.me/wp-content/uploads/2018/08/plan-your-online-course.jpg');
