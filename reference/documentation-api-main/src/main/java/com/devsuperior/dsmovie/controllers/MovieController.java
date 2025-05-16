@@ -2,6 +2,9 @@ package com.devsuperior.dsmovie.controllers;
 
 import java.net.URI;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/movies")
+@Tag(name = "Movies", description = "Controller for Movie")
 public class MovieController {
 
 	@Autowired
@@ -38,7 +42,19 @@ public class MovieController {
 	public MovieDTO findById(@PathVariable Long id) {
 		return service.findById(id);
 	}
-	
+
+
+	@Operation(
+			description = "Create a new movie",
+			summary = "Create a new movie",
+			responses = {
+					@ApiResponse(description = "Created", responseCode = "201"),
+					@ApiResponse(description = "Bad Request", responseCode = "400"),
+					@ApiResponse(description = "Unauthorized", responseCode = "401"),
+					@ApiResponse(description = "Forbidden", responseCode = "403"),
+					@ApiResponse(description = "Unprocessable Entity", responseCode = "422")
+			}
+	)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping(produces = "application/json")
 	public ResponseEntity<MovieDTO> insert(@Valid @RequestBody MovieDTO dto) {

@@ -1,5 +1,6 @@
 package com.devsuperior.dsmovie.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/scores")
+@Tag(name = "Score", description = "Controller for score movie")
 public class ScoreController {
 	
 	@Autowired

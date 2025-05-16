@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition
 public class OpenApiConfig {
-    
+
     @Bean
     public OpenAPI dsmovieAPI() {
         return new OpenAPI()
@@ -20,6 +20,6 @@ public class OpenApiConfig {
                         .version("v0.0.1")
                         .license(new License()
                         .name("Apache 2.0")
-                        .url("https://github.com/devsuperior/dsmovie-ref")));
+                        .url("https://github.com/J-Breno/spring_projets/tree/main/reference/documentation-api-main")));
     }
 }
