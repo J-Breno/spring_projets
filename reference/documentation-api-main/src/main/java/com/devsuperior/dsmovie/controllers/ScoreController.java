@@ -1,5 +1,7 @@
 package com.devsuperior.dsmovie.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +23,19 @@ public class ScoreController {
 	
 	@Autowired
 	private ScoreService service;
-	
+
+	@Operation(
+			description = "Delete a movie",
+			summary = "Delete a movie",
+			responses = {
+					@ApiResponse(description = "Ok", responseCode = "204"),
+					@ApiResponse(description = "Bad Request", responseCode = "400"),
+					@ApiResponse(description = "Unauthorized", responseCode = "401"),
+					@ApiResponse(description = "Forbidden", responseCode = "403"),
+					@ApiResponse(description = "Not Found", responseCode = "404"),
+					@ApiResponse(description = "Unprocessable Entity", responseCode = "422")
+			}
+	)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
 	@PutMapping(produces = "application/json")
 	public MovieDTO saveScore(@Valid @RequestBody ScoreDTO dto) {
