@@ -24,4 +24,13 @@ public class PostController {
         PostDTO postDTO = postService.findById(id);
         return ResponseEntity.ok(postDTO);
     }
+
+    @GetMapping(path = "/titleSearch")
+    public ResponseEntity<List<PostDTO>> findByTitle(
+            @RequestParam(
+                    value = "text",
+                    defaultValue = "")
+            String text) {
+        return ResponseEntity.ok(postService.findByTitle(text));
+    }
 }

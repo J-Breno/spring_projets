@@ -9,6 +9,7 @@ import com.github.jbreno.workshopmongo.services.exceptions.ResourceNotFoundExcep
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +22,11 @@ public class PostService {
         Post post = getEntityById(id);
 
         return new PostDTO(post);
+    }
+
+    public List<PostDTO> findByTitle(String title) {
+        List<Post> list = postRepository.findByTitleContainingIgnoreCase(title);
+        return list.stream().map(x -> new PostDTO(x)).toList();
     }
 
     private Post getEntityById(String id) {
