@@ -1,5 +1,6 @@
 package com.github.jbreno.workshopmongo.controllers;
 
+import com.github.jbreno.workshopmongo.models.dto.PostDTO;
 import com.github.jbreno.workshopmongo.models.dto.UserDTO;
 import com.github.jbreno.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,4 +47,10 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(path = "/{id}/posts")
+    public ResponseEntity<List<PostDTO>> getUserPosts(@PathVariable String id) {
+        return ResponseEntity.ok(userService.getUserPosts(id));
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.github.jbreno.workshopmongo.services;
 
+import com.github.jbreno.workshopmongo.models.dto.PostDTO;
 import com.github.jbreno.workshopmongo.models.dto.UserDTO;
+import com.github.jbreno.workshopmongo.models.entities.Post;
 import com.github.jbreno.workshopmongo.models.entities.User;
 import com.github.jbreno.workshopmongo.repositories.UserRepository;
 import com.github.jbreno.workshopmongo.services.exceptions.ResourceNotFoundException;
@@ -43,6 +45,11 @@ public class UserService {
     public void delete(String id) {
         getEntityById(id);
         userRepository.deleteById(id);
+    }
+
+    public List<PostDTO> getUserPosts(String id) {
+        User user = getEntityById(id);
+        return user.getPosts().stream().map(x -> new PostDTO(x)).toList();
     }
 
     private User getEntityById(String id) {
