@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<UserDTO> findById(@RequestParam String id) {
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         UserDTO userDTO = userService.findById(id);
         return ResponseEntity.ok(userDTO);
     }
@@ -34,5 +34,10 @@ public class UserController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(userDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(userDTO);
+    }
+
+    @PutMapping
+    public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(userService.update(id, userDTO));
     }
 }
