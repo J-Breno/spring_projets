@@ -4,11 +4,10 @@ import com.github.jbreno.workshopmongo.models.dto.UserDTO;
 import com.github.jbreno.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,5 +26,13 @@ public class UserController {
     public ResponseEntity<UserDTO> findById(@RequestParam String id) {
         UserDTO userDTO = userService.findById(id);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDTO) {
+        userDTO = userService.insert(userDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(userDTO.getId()).toUri();
+        return ResponseEntity.created(uri).body(userDTO);
     }
 }
