@@ -5,7 +5,7 @@ import com.github.JBreno.dscommerce.dto.ValidationError;
 import com.github.JBreno.dscommerce.services.exceptions.DatabaseException;
 import com.github.JBreno.dscommerce.services.exceptions.ForbiddenException;
 import com.github.JBreno.dscommerce.services.exceptions.ResouceNotFoundException;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

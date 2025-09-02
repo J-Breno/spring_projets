@@ -5,7 +5,7 @@ import com.github.JBreno.dscommerce.dto.ProductDTO;
 import com.github.JBreno.dscommerce.dto.ProductMinDTO;
 import com.github.JBreno.dscommerce.services.OrderService;
 import com.github.JBreno.dscommerce.services.ProductService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

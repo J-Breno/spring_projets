@@ -8,7 +8,6 @@ import com.github.JBreno.dscommerce.entities.Product;
 import com.github.JBreno.dscommerce.repositories.ProductRepository;
 import com.github.JBreno.dscommerce.services.exceptions.DatabaseException;
 import com.github.JBreno.dscommerce.services.exceptions.ResouceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -16,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class ProductService {

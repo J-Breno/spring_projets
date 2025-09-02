@@ -1,6 +1,6 @@
 package com.github.JBreno.dscommerce.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.time.Instant;
 import java.util.Objects;

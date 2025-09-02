@@ -2,7 +2,7 @@ package com.github.JBreno.dscommerce.dto;
 
 import com.github.JBreno.dscommerce.entities.Category;
 import com.github.JBreno.dscommerce.entities.Product;
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;

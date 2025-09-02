@@ -1,9 +1,6 @@
 package com.github.JBreno.dscommerce.dto;
 
 import com.github.JBreno.dscommerce.entities.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 
 public class ProductMinDTO {
 

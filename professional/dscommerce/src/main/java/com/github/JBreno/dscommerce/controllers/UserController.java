@@ -2,9 +2,7 @@ package com.github.JBreno.dscommerce.controllers;
 
 import com.github.JBreno.dscommerce.dto.ProductDTO;
 import com.github.JBreno.dscommerce.dto.UserDTO;
-import com.github.JBreno.dscommerce.services.ProductService;
 import com.github.JBreno.dscommerce.services.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -5,7 +5,6 @@ import com.github.JBreno.dscommerce.entities.Role;
 import com.github.JBreno.dscommerce.entities.User;
 import com.github.JBreno.dscommerce.projections.UserDetailsProjection;
 import com.github.JBreno.dscommerce.repositories.UserRepository;
-import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

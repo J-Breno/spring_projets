@@ -1,6 +1,6 @@
 package com.github.JBreno.dscommerce.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

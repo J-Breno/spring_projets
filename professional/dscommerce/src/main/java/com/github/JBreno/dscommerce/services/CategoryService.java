@@ -1,21 +1,10 @@
 package com.github.JBreno.dscommerce.services;
 
 import com.github.JBreno.dscommerce.dto.CategoryDTO;
-import com.github.JBreno.dscommerce.dto.ProductDTO;
-import com.github.JBreno.dscommerce.dto.ProductMinDTO;
 import com.github.JBreno.dscommerce.entities.Category;
-import com.github.JBreno.dscommerce.entities.Product;
 import com.github.JBreno.dscommerce.repositories.CategoryRepository;
-import com.github.JBreno.dscommerce.repositories.ProductRepository;
-import com.github.JBreno.dscommerce.services.exceptions.DatabaseException;
-import com.github.JBreno.dscommerce.services.exceptions.ResouceNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

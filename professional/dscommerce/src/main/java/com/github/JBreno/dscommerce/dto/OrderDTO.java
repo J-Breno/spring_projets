@@ -3,7 +3,7 @@ package com.github.JBreno.dscommerce.dto;
 import com.github.JBreno.dscommerce.entities.Order;
 import com.github.JBreno.dscommerce.entities.OrderItem;
 import com.github.JBreno.dscommerce.entities.OrderStatus;
-import jakarta.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 import java.time.Instant;
 import java.util.ArrayList;
